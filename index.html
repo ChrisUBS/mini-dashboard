@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard en Tiempo Real</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="dashboard">
+        <h1>Dashboard en Tiempo Real</h1>
+        <div class="sliders">
+            <label for="slider1">Valor 1:</label>
+            <input type="range" id="slider1" min="0" max="100" value="50">
+            <label for="slider2">Valor 2:</label>
+            <input type="range" id="slider2" min="0" max="100" value="50">
+            <label for="slider3">Valor 3:</label>
+            <input type="range" id="slider3" min="0" max="100" value="50">
+        </div>
+        <div class="charts">
+            <canvas id="chart1"></canvas>
+            <canvas id="chart2"></canvas>
+            <canvas id="chart3"></canvas>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
