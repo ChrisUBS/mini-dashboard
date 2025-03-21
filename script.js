@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
             type: 'line',
             labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'],
             datasets: [{
-                label: 'Promedio de Resolución de Defectos (horas)',
+                label: 'Tiempo Promedio de Resolución de Defectos (horas)',
                 borderColor: '#FFA500',
                 backgroundColor: 'rgba(255, 165, 0, 0.2)',
                 fill: true, // Habilitar relleno
@@ -68,16 +68,14 @@ document.addEventListener("DOMContentLoaded", function () {
         },
         {
             id: 'chart5',
-            type: 'line',
-            labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'],
+            type: 'doughnut', // Gráfica circular tipo doughnut
+            labels: ['Cubierto', 'No Cubierto'],
             datasets: [{
                 label: 'Cobertura de Pruebas (%)',
-                borderColor: '#8A2BE2',
-                backgroundColor: 'rgba(138, 43, 226, 0.2)',
-                fill: true, // Habilitar relleno
-                borderWidth: 2,
-                pointRadius: 0, // Sin puntos
-                tension: 0.4 // Curva suave
+                data: [], // Los datos se actualizarán dinámicamente
+                backgroundColor: ['#36A2EB', '#FF6384'], // Colores para las secciones
+                borderColor: '#1A2E54', // Color del borde
+                borderWidth: 2, // Grosor del borde
             }]
         }
     ];
@@ -107,7 +105,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     duration: 1500, // Duración de la animación
                     easing: 'easeInOutCubic' // Efecto de animación suave
                 },
-                scales: config.type !== 'pie' ? {
+                scales: config.type !== 'pie' && config.type !== 'doughnut' ? {
                     x: { 
                         ticks: { color: 'white', font: { size: 15 } },
                         grid: { color: 'rgba(255, 255, 255, 0.1)' }
@@ -116,7 +114,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         beginAtZero: true, 
                         ticks: { color: 'white', font: { size: 15 } },
                         grid: { color: 'rgba(255, 255, 255, 0.1)' },
-                        max: config.id === 'chart3' || config.id === 'chart5' ? 100 : undefined // Límite del eje Y para gráficas 3 y 5
+                        max: config.id === 'chart3' ? 100 : undefined // Límite del eje Y para gráficas 3
                     }
                 } : {}
             }
@@ -186,10 +184,11 @@ document.addEventListener("DOMContentLoaded", function () {
         charts.chart4.data.datasets[0].data = tiempoResolucion;
         charts.chart4.update();
 
-        // Actualizar gráfica 5 (Cobertura de Pruebas)
-        charts.chart5.data.datasets[0].data = Array.from({ length: 6 }, () => 
-            getRandomFluctuation(coberturaPruebas, 2) // Fluctuación de ±2
-        );
+        // Actualizar gráfica 5 (Cobertura de Pruebas - Doughnut)
+        charts.chart5.data.datasets[0].data = [
+            coberturaPruebas, // Porcentaje cubierto
+            100 - coberturaPruebas // Porcentaje no cubierto
+        ];
         charts.chart5.update();
     }
 
