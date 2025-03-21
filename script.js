@@ -51,6 +51,34 @@ document.addEventListener("DOMContentLoaded", function () {
                 pointRadius: 0, // Sin puntos
                 tension: 0.4 // Curva suave
             }]
+        },
+        {
+            id: 'chart4',
+            type: 'line',
+            labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'],
+            datasets: [{
+                label: 'Promedio de Resolución de Defectos (horas)',
+                borderColor: '#FFA500',
+                backgroundColor: 'rgba(255, 165, 0, 0.2)',
+                fill: true, // Habilitar relleno
+                borderWidth: 2,
+                pointRadius: 0, // Sin puntos
+                tension: 0.4 // Curva suave
+            }]
+        },
+        {
+            id: 'chart5',
+            type: 'line',
+            labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'],
+            datasets: [{
+                label: 'Cobertura de Pruebas (%)',
+                borderColor: '#8A2BE2',
+                backgroundColor: 'rgba(138, 43, 226, 0.2)',
+                fill: true, // Habilitar relleno
+                borderWidth: 2,
+                pointRadius: 0, // Sin puntos
+                tension: 0.4 // Curva suave
+            }]
         }
     ];
 
@@ -88,7 +116,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         beginAtZero: true, 
                         ticks: { color: 'white', font: { size: 15 } },
                         grid: { color: 'rgba(255, 255, 255, 0.1)' },
-                        max: config.id === 'chart3' ? 100 : undefined // Límite del eje Y para la gráfica 3
+                        max: config.id === 'chart3' || config.id === 'chart5' ? 100 : undefined // Límite del eje Y para gráficas 3 y 5
                     }
                 } : {}
             }
@@ -123,6 +151,18 @@ document.addEventListener("DOMContentLoaded", function () {
         const densidadDefectos = defectosEncontradosTotales / (tamanoCodigo / 1000);
         const dre = Math.min((defectosAntesEntrega / defectosEncontradosTotales) * 100, 100); // Limitar a 100%
 
+        // Tiempo promedio de resolución de defectos (horas por defecto)
+        const tiempoResolucion = Array.from({ length: 6 }, () => 
+            getRandomInRange(1, 10) // Tiempo aleatorio entre 1 y 10 horas
+        );
+
+        // Cobertura de pruebas (% de líneas ejecutadas)
+        const lineasEjecutadas = getRandomInRange(
+            Math.floor(tamanoCodigo * 0.60), // Mínimo 60% de cobertura
+            Math.floor(tamanoCodigo * 0.99)  // Máximo 99% de cobertura
+        );
+        const coberturaPruebas = (lineasEjecutadas / tamanoCodigo) * 100;
+
         // Actualizar gráfica 1 (Tasa de Detección de Defectos)
         charts.chart1.data.datasets[0].data = Array.from({ length: 6 }, () => 100); // Defectos estimados (100%)
         charts.chart1.data.datasets[1].data = Array.from({ length: 6 }, (_, i) => 
@@ -141,6 +181,16 @@ document.addEventListener("DOMContentLoaded", function () {
             getRandomFluctuation(dre, 2) // Fluctuación de ±2
         );
         charts.chart3.update();
+
+        // Actualizar gráfica 4 (Tiempo Promedio de Resolución de Defectos)
+        charts.chart4.data.datasets[0].data = tiempoResolucion;
+        charts.chart4.update();
+
+        // Actualizar gráfica 5 (Cobertura de Pruebas)
+        charts.chart5.data.datasets[0].data = Array.from({ length: 6 }, () => 
+            getRandomFluctuation(coberturaPruebas, 2) // Fluctuación de ±2
+        );
+        charts.chart5.update();
     }
 
     // Actualizar gráficas automáticamente cada 2 segundos
