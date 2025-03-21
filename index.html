@@ -9,19 +9,27 @@
 </head>
 <body>
     <header>
-        <img src="https://bbva.wd3.myworkdayjobs.com/wday/cxs/bbva/BBVA/sidebarimage/03076b60251b10018fd95a9ddf180000" alt="dwqw">
+        <img src="https://bbva.wd3.myworkdayjobs.com/wday/cxs/bbva/BBVA/sidebarimage/03076b60251b10018fd95a9ddf180000" alt="logo">
     </header>
     <div class="title">
         <h1>Dashboard en Tiempo Real</h1>
     </div>
     <div class="dashboard">
         <div class="sliders">
-            <label for="slider1">Valor 1:</label>
+            <label for="slider1">Defectos Encontrados:</label>
             <input type="range" id="slider1" min="0" max="100" value="50">
-            <label for="slider2">Valor 2:</label>
+            <label for="slider2">Defectos Estimados:</label>
             <input type="range" id="slider2" min="0" max="100" value="50">
-            <label for="slider3">Valor 3:</label>
+            <label for="slider3">Tamaño del Código (KLOC):</label>
             <input type="range" id="slider3" min="0" max="100" value="50">
+            <label for="slider4">Líneas de Código Ejecutadas:</label>
+            <input type="range" id="slider4" min="0" max="100" value="50">
+            <label for="slider5">Total de Líneas de Código:</label>
+            <input type="range" id="slider5" min="0" max="100" value="50">
+            <label for="slider6">Defectos Encontrados Antes de la Entrega:</label>
+            <input type="range" id="slider6" min="0" max="100" value="50">
+            <label for="slider7">Total de Defectos Conocidos:</label>
+            <input type="range" id="slider7" min="0" max="100" value="50">
         </div>
         <div class="charts-container">
             <div class="charts">
@@ -33,8 +41,11 @@
             <div class="charts">
                 <canvas id="chart3"></canvas>
             </div>
+            <div class="charts">
+                <canvas id="chart4"></canvas>
+            </div>
         </div>
-        </div>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>

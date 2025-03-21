@@ -1,10 +1,9 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box; /* Para evitar problemas con el padding */
+    box-sizing: border-box;
 }
 
-/* Estilos generales */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -13,7 +12,7 @@ body {
     color: #333;
 }
 
-.title{
+.title {
     text-align: center;
     align-items: center;
     justify-content: center;
@@ -21,7 +20,6 @@ body {
     padding: 15px;
 }
 
-/* Estilos para el header */
 header {
     display: flex;
     justify-content: space-between;
@@ -32,7 +30,6 @@ header {
     margin: 0;
 }
 
-/* Título */
 h1 {
     text-align: center;
     color: #EBEBEB;
@@ -41,37 +38,33 @@ h1 {
 
 .dashboard {
     display: flex;
-    justify-content: space-around; /* Espacio entre sliders y gráficos */
+    justify-content: space-around;
     align-items: center;
     gap: 20px;
     max-width: 100%;
     padding: 20px;
-    /* margin: auto; */
 }
 
-/* Ajusta sliders y gráficos para ocupar la mitad */
 .sliders, .charts {
     width: 50%;
     box-sizing: border-box;
 }
 
-.sliders{
+.sliders {
     display: flex;
-    flex-direction: column; /* Ordenar los sliders verticalmente */
+    flex-direction: column;
     gap: 20px;
     background-color: #50B6FF;
-    width: 600px; /* Ajusta el ancho de los sliders */
-    height: 100%; /* Ocupa toda la altura disponible */
-    justify-content: center; /* Centra los sliders verticalmente */
+    width: 600px;
+    height: 100%;
+    justify-content: center;
     padding: 20px;
     border-radius: 10px;
     font-size: 1.3rem;
     font-weight: 700;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    
 }
 
-/* Ajustes adicionales para las gráficas */
 .charts {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(700px, 1fr));
@@ -80,7 +73,6 @@ h1 {
     width: 100%;
 }
 
-/* Estilos para los gráficos */
 canvas {
     background-color: #1A2E54;
     border: 1px solid #ddd;
@@ -92,10 +84,9 @@ canvas {
 img {
     width: 10%;
     height: auto;
-    filter: brightness(0.9); /* Ajuste de brillo para que la imagen combine con el color del header*/
+    filter: brightness(0.9);
 }
 
-/* Responsividad */
 @media (max-width: 768px) {
     .dashboard {
         padding: 15px;

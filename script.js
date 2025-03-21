@@ -4,25 +4,37 @@ document.addEventListener("DOMContentLoaded", function () {
             id: 'chart1',
             type: 'line',
             labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'],
-            data: [50, 60, 70, 80, 90, 100],
+            data: [],
             borderColor: '#2DCCCD',
-            backgroundColor: 'rgba(75, 192, 192, 0.2)'
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            label: 'Tasa de Detección de Defectos (%)'
         },
         {
             id: 'chart2',
             type: 'bar',
             labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'],
-            data: [50, 60, 70, 80, 90, 100],
+            data: [],
             borderColor: 'rgba(153, 102, 255, 1)',
-            backgroundColor: 'rgba(153, 102, 255, 0.2)'
+            backgroundColor: 'rgba(153, 102, 255, 0.2)',
+            label: 'Densidad de Defectos (defectos/KLOC)'
         },
         {
             id: 'chart3',
             type: 'pie',
-            labels: ['Rojo', 'Azul', 'Amarillo'],
-            data: [50, 30, 20],
-            borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)'],
-            backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)']
+            labels: ['Cobertura de Pruebas', 'No Cubierto'],
+            data: [],
+            borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)'],
+            backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)'],
+            label: 'Cobertura de Pruebas (%)'
+        },
+        {
+            id: 'chart4',
+            type: 'line',
+            labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'],
+            data: [],
+            borderColor: '#FF6384',
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            label: 'Efectividad de Eliminación de Defectos (%)'
         }
     ];
 
@@ -35,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
             data: {
                 labels: config.labels,
                 datasets: [{
-                    label: `Datos ${config.id.replace('chart', '')}`,
+                    label: config.label,
                     data: config.data,
                     borderColor: config.borderColor,
                     backgroundColor: config.backgroundColor,
@@ -59,19 +71,40 @@ document.addEventListener("DOMContentLoaded", function () {
         charts[config.id] = createChart(config);
     });
 
-    document.querySelectorAll('.sliders input').forEach((slider, index) => {
-        slider.addEventListener('input', () => {
-            const value = parseInt(slider.value);
-            if (index === 0) {
-                charts.chart1.data.datasets[0].data = Array.from({ length: 6 }, (_, i) => value + i * 10);
-                charts.chart1.update();
-            } else if (index === 1) {
-                charts.chart2.data.datasets[0].data = Array.from({ length: 6 }, (_, i) => value + i * 10);
-                charts.chart2.update();
-            } else if (index === 2) {
-                charts.chart3.data.datasets[0].data = [value, 100 - value, value / 2];
-                charts.chart3.update();
-            }
-        });
+    function updateCharts() {
+        const defectosEncontrados = parseInt(document.getElementById('slider1').value);
+        const defectosEstimados = parseInt(document.getElementById('slider2').value);
+        const tamanoCodigo = parseInt(document.getElementById('slider3').value);
+        const lineasEjecutadas = parseInt(document.getElementById('slider4').value);
+        const totalLineas = parseInt(document.getElementById('slider5').value);
+        const defectosAntesEntrega = parseInt(document.getElementById('slider6').value);
+        const totalDefectosConocidos = parseInt(document.getElementById('slider7').value);
+
+        // Tasa de Detección de Defectos
+        const tasaDeteccion = (defectosEncontrados / defectosEstimados) * 100;
+        charts.chart1.data.datasets[0].data = Array.from({ length: 6 }, (_, i) => tasaDeteccion + i * 10);
+        charts.chart1.update();
+
+        // Densidad de Defectos
+        const densidadDefectos = defectosEncontrados / (tamanoCodigo / 1000);
+        charts.chart2.data.datasets[0].data = Array.from({ length: 6 }, (_, i) => densidadDefectos + i * 10);
+        charts.chart2.update();
+
+        // Cobertura de Pruebas
+        const coberturaPruebas = (lineasEjecutadas / totalLineas) * 100;
+        charts.chart3.data.datasets[0].data = [coberturaPruebas, 100 - coberturaPruebas];
+        charts.chart3.update();
+
+        // Efectividad de Eliminación de Defectos
+        const dre = (defectosAntesEntrega / totalDefectosConocidos) * 100;
+        charts.chart4.data.datasets[0].data = Array.from({ length: 6 }, (_, i) => dre + i * 10);
+        charts.chart4.update();
+    }
+
+    document.querySelectorAll('.sliders input').forEach(slider => {
+        slider.addEventListener('input', updateCharts);
     });
+
+    // Inicializar gráficos con valores por defecto
+    updateCharts();
 });
