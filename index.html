@@ -8,8 +8,13 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <div class="dashboard">
+    <header>
+        <img src="https://bbva.wd3.myworkdayjobs.com/wday/cxs/bbva/BBVA/sidebarimage/03076b60251b10018fd95a9ddf180000" alt="dwqw">
+    </header>
+    <div class="title">
         <h1>Dashboard en Tiempo Real</h1>
+    </div>
+    <div class="dashboard">
         <div class="sliders">
             <label for="slider1">Valor 1:</label>
             <input type="range" id="slider1" min="0" max="100" value="50">
@@ -18,12 +23,18 @@
             <label for="slider3">Valor 3:</label>
             <input type="range" id="slider3" min="0" max="100" value="50">
         </div>
-        <div class="charts">
-            <canvas id="chart1"></canvas>
-            <canvas id="chart2"></canvas>
-            <canvas id="chart3"></canvas>
+        <div class="charts-container">
+            <div class="charts">
+                <canvas id="chart1"></canvas>
+            </div>
+            <div class="charts">
+                <canvas id="chart2"></canvas>
+            </div>
+            <div class="charts">
+                <canvas id="chart3"></canvas>
+            </div>
         </div>
-    </div>
+        </div>
     <script src="script.js"></script>
 </body>
 </html>

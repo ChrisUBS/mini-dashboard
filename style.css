@@ -1,59 +1,98 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Para evitar problemas con el padding */
+}
+
 /* Estilos generales */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background-color: #F3F2F3;
     color: #333;
 }
 
-/* Contenedor principal */
-.dashboard {
-    max-width: 1200px;
-    padding: 20px;
-    margin: auto;
+.title{
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    background-color: #13599B;
+    padding: 15px;
+}
+
+/* Estilos para el header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #19213A;
+    color: #fff;
+    margin: 0;
 }
 
 /* Título */
 h1 {
     text-align: center;
-    color: #222;
+    color: #EBEBEB;
     font-size: 2rem;
-    margin-bottom: 20px;
 }
 
-/* Controles deslizantes */
-.sliders {
+.dashboard {
     display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-bottom: 20px;
-    background: #fff;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    justify-content: space-around; /* Espacio entre sliders y gráficos */
+    align-items: center;
+    gap: 20px;
+    max-width: 100%;
+    padding: 20px;
+    /* margin: auto; */
 }
 
-.sliders label {
-    font-weight: bold;
-    font-size: 1rem;
+/* Ajusta sliders y gráficos para ocupar la mitad */
+.sliders, .charts {
+    width: 50%;
+    box-sizing: border-box;
 }
 
-/* Diseño de gráficos */
+.sliders{
+    display: flex;
+    flex-direction: column; /* Ordenar los sliders verticalmente */
+    gap: 20px;
+    background-color: #50B6FF;
+    width: 600px; /* Ajusta el ancho de los sliders */
+    height: 100%; /* Ocupa toda la altura disponible */
+    justify-content: center; /* Centra los sliders verticalmente */
+    padding: 20px;
+    border-radius: 10px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    
+}
+
+/* Ajustes adicionales para las gráficas */
 .charts {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(700px, 1fr));
     gap: 20px;
     padding: 10px;
+    width: 100%;
 }
 
 /* Estilos para los gráficos */
 canvas {
-    background-color: #fff;
+    background-color: #1A2E54;
     border: 1px solid #ddd;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     padding: 10px;
+}
+
+img {
+    width: 10%;
+    height: auto;
+    filter: brightness(0.9); /* Ajuste de brillo para que la imagen combine con el color del header*/
 }
 
 /* Responsividad */

@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
             type: 'line',
             labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'],
             data: [50, 60, 70, 80, 90, 100],
-            borderColor: 'rgba(75, 192, 192, 1)',
+            borderColor: '#2DCCCD',
             backgroundColor: 'rgba(75, 192, 192, 0.2)'
         },
         {
@@ -44,10 +44,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 }]
             },
             options: {
+                plugins: { legend: { labels: { color:"white", font: { size: 14 } } } },
                 responsive: true,
                 maintainAspectRatio: false,
                 scales: config.type !== 'pie' ? {
-                    y: { beginAtZero: true }
+                    x: { ticks: { color: 'white', font: { size: 15 }} },
+                    y: {beginAtZero:true, ticks: { color: 'white', font: { size: 15 } } }   
                 } : {}
             }
         });
