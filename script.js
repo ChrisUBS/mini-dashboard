@@ -2,12 +2,22 @@ document.addEventListener("DOMContentLoaded", function () {
     const chartConfigs = [
         {
             id: 'chart1',
-            type: 'line',
+            type: 'line', // Tipo de gráfica (line para gráfica de área)
             labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'],
-            data: [],
-            borderColor: '#2DCCCD',
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            label: 'Tasa de Detección de Defectos (%)'
+            datasets: [
+                {
+                    label: 'Defectos Estimados (%)',
+                    borderColor: '#2DCCCD', // Color del borde (azul)
+                    backgroundColor: 'rgba(45, 204, 205, 0.5)', // Color de relleno (azul semitransparente)
+                    fill: true // Habilitar relleno para gráfica de área
+                },
+                {
+                    label: 'Defectos Encontrados (%)',
+                    borderColor: '#32CD32', // Color del borde (verde)
+                    backgroundColor: 'rgba(50, 205, 50, 0.5)', // Color de relleno (verde semitransparente)
+                    fill: true // Habilitar relleno para gráfica de área
+                }
+            ]
         },
         {
             id: 'chart2',
@@ -46,22 +56,22 @@ document.addEventListener("DOMContentLoaded", function () {
             type: config.type,
             data: {
                 labels: config.labels,
-                datasets: [{
+                datasets: config.datasets || [{
                     label: config.label,
                     data: config.data,
                     borderColor: config.borderColor,
                     backgroundColor: config.backgroundColor,
                     borderWidth: 2,
-                    fill: config.type === 'line' ? false : true
+                    fill: config.fill || false
                 }]
             },
             options: {
-                plugins: { legend: { labels: { color:"white", font: { size: 14 } } } },
+                plugins: { legend: { labels: { color: "white", font: { size: 14 } } } },
                 responsive: true,
                 maintainAspectRatio: false,
                 scales: config.type !== 'pie' ? {
-                    x: { ticks: { color: 'white', font: { size: 15 }} },
-                    y: {beginAtZero:true, ticks: { color: 'white', font: { size: 15 } } }   
+                    x: { ticks: { color: 'white', font: { size: 15 } } },
+                    y: { beginAtZero: true, ticks: { color: 'white', font: { size: 15 } } }
                 } : {}
             }
         });
@@ -80,9 +90,12 @@ document.addEventListener("DOMContentLoaded", function () {
         const defectosAntesEntrega = parseInt(document.getElementById('slider6').value);
         const totalDefectosConocidos = parseInt(document.getElementById('slider7').value);
 
-        // Tasa de Detección de Defectos
-        const tasaDeteccion = (defectosEncontrados / defectosEstimados) * 100;
-        charts.chart1.data.datasets[0].data = Array.from({ length: 6 }, (_, i) => tasaDeteccion + i * 10);
+        // Tasa de Detección de Defectos (dos áreas)
+        const tasaDeteccionEncontrados = (defectosEncontrados / defectosEstimados) * 100;
+        const tasaDeteccionEstimados = (defectosEstimados / defectosEstimados) * 100; // Siempre 100% como referencia
+
+        charts.chart1.data.datasets[0].data = Array.from({ length: 6 }, (_, i) => tasaDeteccionEstimados);
+        charts.chart1.data.datasets[1].data = Array.from({ length: 6 }, (_, i) => tasaDeteccionEncontrados + i * 10);
         charts.chart1.update();
 
         // Densidad de Defectos
